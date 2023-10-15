@@ -10,7 +10,15 @@ import pickle
 import streamlit as st
 
 # Load the saved model
-loaded_model = pickle.load(open('C:/Users/vinay/OneDrive/Desktop/ML Project/ML web/trained_model.sav', 'rb'))
+model_file_path = 'trained_model.sav'
+
+try:
+    with open(model_file_path, 'rb') as model_file:
+        loaded_model = pickle.load(model_file)
+except FileNotFoundError:
+    print(f"Model file '{model_file_path}' not found. Please check the file path.")
+except Exception as e:
+    print(f"An error occurred while loading the model: {e}")
 
 # Create a function for prediction
 def kidney_prediction(new_data):
